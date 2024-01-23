@@ -1,3 +1,3 @@
-export default function DisplayPokemons(pokemons) {
-console.log(pokemons)
+export default function DisplayEnemyPokemons(props) {
+  console.log(props.data);
 }
