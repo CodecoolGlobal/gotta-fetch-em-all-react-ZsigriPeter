@@ -1,6 +1,7 @@
 .App {
   background-image: url('/public/pics/4405.jpg');
   text-align: center;
+
 }
 
 .battle-area {
@@ -81,6 +82,69 @@
   vertical-align: top;
 }
 
+.allPokemons {
+  display: flex;
+  margin: 10px 10px;
+}
+
+.enemyPokemonContainer{
+  display: inline-block;
+  position: absolute;
+  right: 100px;
+  
+}
+
+.pokemons, .enemy-pokemons {
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+  left: -100px;
+}
+
+.userPokemons, .enemyPokemons{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.999s;
+}
+
+.pokemons:hover .userPokemons, .enemy-pokemons:hover .enemyPokemons {
+  transform: rotateY(180deg);
+}
+.pokemon-front,
+.pokemon-back,
+.enemy-pokemon-front,
+.enemy-pokemon-back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.pokemon-front, .enemy-pokemon-front {
+  background-color: #28d818;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  border: 10px solid #148310a8;
+  border-radius: 10px;
+  justify-content: center;
+  font-size: 15px;
+  transform: rotateY(0deg);
+}
+.pokemon-back, .enemy-pokemon-back {
+  background-color: #063504;
+  color: #fff;
+  display: inline-block;
+  align-items: center;
+  border: 10px solid #144e0a;
+  border-radius: 10px;
+  justify-content: center;
+  font-size: 10px;
+  text-align: center;
+  transform: rotateY(180deg);
+}
 
 .locations h1 {
   position: relative;

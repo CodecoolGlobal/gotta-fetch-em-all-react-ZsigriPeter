@@ -2,14 +2,16 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import DisplayLocations from "./components/DisplayLocations";
 import DisplayBattle from "./components/DisplayBattle";
-import DisplayUsersPokemon from "./components/DisplayUsersPokemon";
-import DisplayEnemyPokemons from "./components/DisplayPokemons";
+import DisplayAllPokemons from "./components/DisplayPokemons";
+
 
 function App() {
   const [location, setLocation] = useState([]);
   const [pageState, setPageState] = useState('location');
   const [areaEncounters, setAreaEncounters] = useState([]);
   const [usersPokemon, setUsersPokemon] = useState([]);
+  const [chosenUserPokemon, setChosenUserPokemon] = useState(null);
+  const [chosenEnemyPokemon, setChosenEnemyPokemon] = useState(null)
   const [playerPokemon, setPlayerPokemon]= useState(null);
   const [enemyPokemon, setEnemyPokemon]= useState(null);
   const [playerHP,setPlayerHP] = useState(0);
@@ -73,14 +75,15 @@ function App() {
    
   },[]);
 
+
   useEffect(() => {
     const startingPokemonURL = [
       "https://pokeapi.co/api/v2/pokemon/bulbasaur",
       "https://pokeapi.co/api/v2/pokemon/charizard",
-      "https://pokeapi.co/api/v2/pokemon/poliwhirl"
+      "https://pokeapi.co/api/v2/pokemon/poliwhirl",
     ];
     const fetchData = async () => {
-      const response=await startingPokemonURL.map(async(url) => {
+      const response = await startingPokemonURL.map(async (url) => {
         const response = await fetch(url);
         const jsonData = await response.json();
         return jsonData;
@@ -90,8 +93,6 @@ function App() {
     };
     fetchData();
   }, []);
-
-
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/location")
@@ -126,24 +127,38 @@ function App() {
         const urlData = await pokemonUrlPromise.json();
         return urlData;
       });
-      const pokemons = await Promise.all(response)
+      const pokemons = await Promise.all(response);
       setAreaEncounters(pokemons);
     };
 
     setPageState('battle');
   };
 
+  const handleSelectedEnemyPokemon = (enemyPokemon) => {
+setChosenEnemyPokemon(enemyPokemon)
+console.log(enemyPokemon);
+  }
+
+  const handleSelectedUserPoemon = (pokemon) => {
+setChosenUserPokemon(pokemon)
+console.log(pokemon);
+  }
 
   return (
     <div className="App">
       {pageState==='location' ? (
         <DisplayLocations location={location} onClick={handleLocation} />
       ) : pageState==='battle' ? (<DisplayBattle player={playerPokemon} enemy={enemyPokemon} handler={handlerBattle} eHP={enemyHP} pHP={playerHP} />) :  pageState==='selectpokemons'&&areaEncounters ? (
-        <DisplayEnemyPokemons data={areaEncounters}/>
+        <DisplayAllPokemons
+          enemyPokemonList={areaEncounters}
+          userPokemonList={usersPokemon}
+          onClick={handleSelectedUserPoemon}
+          enemySelect={handleSelectedEnemyPokemon}
+        />
+
       ) : (
         <p>No areas available for the selected location.</p>
       )}
-      <DisplayUsersPokemon pokemonList={usersPokemon} />
     </div>
   );
 }
