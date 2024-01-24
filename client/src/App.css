@@ -1,15 +1,85 @@
 .App {
   background-image: url('/public/pics/4405.jpg');
-  background-repeat: repeat-y;
+  text-align: center;
+
 }
 
-.locations{
-border: solid;
-width: 300px;
-height: 100px;
-margin: 10px 10px 10px 10px;
-display: inline-block;
-vertical-align: top;
+.battle-area {
+  margin-top: 100px;
+  margin-bottom: 75px;
+  display: inline-block;
+  width: 900px;
+  position: relative;
+  background-image: url('https://pbs.twimg.com/media/FVdYl2SUUAA1Pe3?format=png&name=large');
+  background-size: cover;
+  height: 500px;
+}
+
+.pokemon-name,.pokemon-hp,.pokemon-stat {
+  border: solid;
+  border-radius: 6px;
+  width: 150px;
+}
+
+.pokemon-hp {
+  background-color: bisque;
+}
+
+.pokemon-stat {
+  background-color: honeydew;
+}
+
+.player-pokemon .pokemon-stat {
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  left: -280px;
+  width: 150px;
+  top: -400px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.enemy-pokemon .pokemon-stat {
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  left: 295px;
+  width: 150px;
+  top: -380px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.pokemon-name {
+  background-color:linen;
+}
+
+.enemy-pokemon {
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  left: 160px;
+  width: 100px;
+  top: 110px;
+}
+
+.player-pokemon {
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  left: -230px;
+  width: 100px;
+  top: 140px;
+}
+
+.locations {
+  border: solid;
+  width: 300px;
+  height: 100px;
+  margin: 10px 10px 10px 10px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .allPokemons {
@@ -119,6 +189,7 @@ vertical-align: top;
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
