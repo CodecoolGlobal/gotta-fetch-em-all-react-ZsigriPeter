@@ -9,7 +9,7 @@ export default function DisplayLocations(props) {
         <div 
         className ="locations" 
         key={index}
-        style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/pics/locations/${result.name}.jpg)`, backgroundSize: 'cover', padding: '20px' }}
+        style={{ backgroundImage: `url(/pics/locations/${result.name}.jpg)`, backgroundSize: 'cover', padding: '20px' }}
         >
           <h1>{result.name}</h1>
             <button onClick={() =>{props.onClick(result.name)} }>Chose place</button>
