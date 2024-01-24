@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import DisplayLocations from "./components/DisplayLocations";
 import getPokemonUrls from "./functions/getPokemonUrls";
+import DisplayUsersPokemon from "./components/DisplayUsersPokemon";
 //import DisplayPokemons from "./components/DisplayPokemons";
 
 function App() {
@@ -11,6 +12,25 @@ function App() {
   const [areaEncounters, setAreaEncounters] = useState([]);
   //const [foundPokemon, setFoundPokemons] = useState([]);
   const [pokemonDetails, setPokemonDetails] = useState([])
+  const [usersPokemon, setUsersPokemon] = useState([]);
+
+  useEffect(() => {
+    const startingPokemonURL = [
+      "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+      "https://pokeapi.co/api/v2/pokemon/charizard",
+      "https://pokeapi.co/api/v2/pokemon/poliwhirl"
+    ];
+    const fetchData = async () => {
+      const response=await startingPokemonURL.map(async(url) => {
+        const response = await fetch(url);
+        const jsonData = await response.json();
+        return jsonData;
+      });
+      const pokemons = await Promise.all(response);
+      setUsersPokemon(pokemons);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/location")
@@ -52,22 +72,22 @@ function App() {
     }
   }, [locationAreas]);
 
-     /* useEffect(() => {
-      if(areaEncounters.length > 0) {
-        areaEncounters.map(pokemon => {
-          fetch(pokemon.url)
-          .then((response) => response.json())
-          .then((pokemonData) => {
-             setPokemonDetails((prevData) => [ ...prevData, pokemonData])
-             console.log(pokemonDetails);
-          })
-          .catch((error) =>
-          console.error("Error while fetching Pokemon Url", error)
-        );
-      }
-        )
-    }
-  }, [areaEncounters]);    */
+  /* useEffect(() => {
+   if(areaEncounters.length > 0) {
+     areaEncounters.map(pokemon => {
+       fetch(pokemon.url)
+       .then((response) => response.json())
+       .then((pokemonData) => {
+          setPokemonDetails((prevData) => [ ...prevData, pokemonData])
+          console.log(pokemonDetails);
+       })
+       .catch((error) =>
+       console.error("Error while fetching Pokemon Url", error)
+     );
+   }
+     )
+ }
+}, [areaEncounters]);    */
 
   // Itt Ez a useEffect lényegében helyettesíti a getPokemonUrls functiont mert itt végig mappelek és a pokemon.url-t veszem ki,
   // Szóval lehet jobb lenne így csinálni csak valamiért nem megy bele ebbe a hook-ba, és most ezt probálom megoldani.
@@ -87,6 +107,7 @@ function App() {
       ) : (
         <p>No areas available for the selected location.</p>
       )}
+      <DisplayUsersPokemon pokemonList={usersPokemon} />
     </div>
   );
 }
