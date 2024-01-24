@@ -47,6 +47,10 @@ vertical-align: top;
   color: #61dafb;
 }
 
+.users-pokemon {
+  background-color: aqua;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,12 +1,34 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import DisplayLocations from "./components/DisplayLocations";
+
+import DisplayUsersPokemon from "./components/DisplayUsersPokemon";
 import DisplayEnemyPokemons from "./components/DisplayPokemons";
 
 function App() {
   const [location, setLocation] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(false);
   const [areaEncounters, setAreaEncounters] = useState([]);
+  const [pokemonDetails, setPokemonDetails] = useState([])
+  const [usersPokemon, setUsersPokemon] = useState([]);
+
+  useEffect(() => {
+    const startingPokemonURL = [
+      "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+      "https://pokeapi.co/api/v2/pokemon/charizard",
+      "https://pokeapi.co/api/v2/pokemon/poliwhirl"
+    ];
+    const fetchData = async () => {
+      const response=await startingPokemonURL.map(async(url) => {
+        const response = await fetch(url);
+        const jsonData = await response.json();
+        return jsonData;
+      });
+      const pokemons = await Promise.all(response);
+      setUsersPokemon(pokemons);
+    };
+    fetchData();
+  }, []);
 
 
 
@@ -60,6 +82,7 @@ function App() {
       ) : (
         <p>No areas available for the selected location.</p>
       )}
+      <DisplayUsersPokemon pokemonList={usersPokemon} />
     </div>
   );
 }
