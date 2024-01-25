@@ -10,21 +10,15 @@ function App() {
   const [pageState, setPageState] = useState("location");
   const [areaEncounters, setAreaEncounters] = useState([]);
   const [usersPokemon, setUsersPokemon] = useState([]);
-  const [playerPokemon, setPlayerPokemon] = useState(null);
-  const [enemyPokemon, setEnemyPokemon] = useState(null);
-  const [playerHP, setPlayerHP] = useState(0);
-  const [enemyHP, setEnemyHP] = useState(0);
+  const [playerPokemon, setPlayerPokemon]= useState(null);
+  const [enemyPokemon, setEnemyPokemon]= useState(null);
+  const [playerHP,setPlayerHP] = useState(0);
+  const [enemyHP,setEnemyHP] = useState(0);
 
-  const calculateDamage = (attacker, defender) => {
-    //217 and 255
-    const random = Math.floor(Math.random() * 38) + 217;
-    const result =
-      ((((2 / 5 + 2) * attacker.stats[1].base_stat * 60) /
-        defender.stats[2].base_stat /
-        50 +
-        2) *
-        random) /
-      255;
+  const calculateDamage=(attacker,defender) => {
+    const random=Math.floor(Math.random()*38)+217;
+    const result=((((2/5+2)*attacker.stats[1].base_stat*60/defender.stats[2].base_stat)/50)+2)*random/255;
+
     return result;
   };
 
@@ -62,7 +56,24 @@ function App() {
         //Battle Over, Enemy won
       }
     }
-  };
+  }
+
+  useEffect(()=> {
+    const playerURL='https://pokeapi.co/api/v2/pokemon/charizard';
+    const enemyURL='https://pokeapi.co/api/v2/pokemon/bulbasaur';
+    const fetchData=async (url,state,stateHP) => {
+      const response=await fetch(url);
+      const jsonData=await response.json();
+      state(jsonData);
+      stateHP(jsonData.stats[0].base_stat);
+      return jsonData;
+    }
+    fetchData(playerURL,setPlayerPokemon,setPlayerHP);
+    fetchData(enemyURL,setEnemyPokemon,setEnemyHP);
+   
+  },[]);
+
+
 
   useEffect(() => {
     const startingPokemonURL = [
