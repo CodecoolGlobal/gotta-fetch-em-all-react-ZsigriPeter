@@ -1,7 +1,6 @@
 .App {
-  background-image: url('/public/pics/magicpattern-mesh-gradient-1706170069987.png');
+  background-image: url("/public/pics/magicpattern-mesh-gradient-1706170069987.png");
   text-align: center;
-
 }
 
 .battle-area {
@@ -10,7 +9,7 @@
   display: inline-block;
   width: 900px;
   position: relative;
-  background-image: url('https://pbs.twimg.com/media/FVdYl2SUUAA1Pe3?format=png&name=large');
+  background-image: url("https://pbs.twimg.com/media/FVdYl2SUUAA1Pe3?format=png&name=large");
   background-size: cover;
   height: 500px;
 }
@@ -22,14 +21,16 @@
 .pokemon-pic-defeat-enemy {
   image-rendering: pixelated;
   transform: scale(4, 4);
-  transform: rotate(120deg)
+  transform: rotate(120deg);
 }
 .pokemon-pic-defeat-player {
   image-rendering: pixelated;
-  transform: rotate(-120deg)
+  transform: rotate(-120deg);
 }
 
-.pokemon-name,.pokemon-hp,.pokemon-stat {
+.pokemon-name,
+.pokemon-hp,
+.pokemon-stat {
   border: solid;
   border-radius: 6px;
   width: 150px;
@@ -86,7 +87,6 @@
   top: 220px;
 }
 
-
 .enemy-pokemon .pokemon-stat {
   display: inline-block;
   height: 30px;
@@ -99,7 +99,7 @@
 }
 
 .pokemon-name {
-  background-color:linen;
+  background-color: linen;
 }
 
 .enemy-pokemon {
@@ -135,41 +135,44 @@
   margin: 10px 10px;
 }
 
-.enemyPokemonContainer{
+.enemyPokemonContainer {
   position: absolute;
   right: 100px;
-  
 }
 
-.pokemons, .enemy-pokemons {
+.pokemons,
+.enemy-pokemons {
   width: 300px;
   height: 200px;
   perspective: 1000px;
   left: -100px;
 }
 
-.userPokemons, .enemyPokemons{
+.userPokemons,
+.enemyPokemons {
   width: 100%;
   height: 100%;
-margin: 10px 10px;
+  margin: 10px 10px;
   transform-style: preserve-3d;
   transition: transform 0.999s;
 }
 
-.pokemons:hover .userPokemons, .enemy-pokemons:hover .enemyPokemons {
+.pokemons:hover .userPokemons,
+.enemy-pokemons:hover .enemyPokemons {
   transform: rotateY(180deg);
 }
 .pokemon-front,
 .pokemon-back,
 .enemy-pokemon-front,
-.enemy-pokemon-back{
+.enemy-pokemon-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
 }
 
-.pokemon-front, .enemy-pokemon-front {
+.pokemon-front,
+.enemy-pokemon-front {
   background-color: #400462;
   color: #fff;
   display: flex;
@@ -180,7 +183,8 @@ margin: 10px 10px;
   font-size: 15px;
   transform: rotateY(0deg);
 }
-.pokemon-back, .enemy-pokemon-back {
+.pokemon-back,
+.enemy-pokemon-back {
   background-color: #063504;
   color: #fff;
   display: inline-block;
@@ -196,7 +200,8 @@ margin: 10px 10px;
 .locations h1 {
   position: relative;
   top: -50px;
-  text-shadow: 1px 1px 2px rgb(239, 251, 5), 0 0 1em rgba(14, 243, 247, 0.775), 0 0 0.2em rgba(7, 243, 239, 0.293);
+  text-shadow: 1px 1px 2px rgb(239, 251, 5), 0 0 1em rgba(14, 243, 247, 0.775),
+    0 0 0.2em rgba(7, 243, 239, 0.293);
   height: 50px;
 }
 
@@ -204,8 +209,6 @@ margin: 10px 10px;
   height: 40vmin;
   pointer-events: none;
 }
-
-
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -243,6 +246,120 @@ margin: 10px 10px;
 }
 
 .loading-page {
-  background-image: url('/public/pics/1200224-3840x2160-desktop-4k-ghost-pokemon-background-image.jpg');
+  background-image: url("/public/pics/magicpattern-mesh-gradient-1706170069987.png");
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  text-align: center;
+  color: aliceblue;
+}
+.loader {
+  background-color: #ecf0f1;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 100000;
+}
+
+.loader__element {
+  border-radius: 100%;
+  border: var(--size) solid #555;
+  margin: calc 5px * 2;
+}
+
+.loader__element:nth-child(1) {
+  animation: preloader 0.6s ease-in-out alternate infinite;
+}
+.loader__element:nth-child(2) {
+  animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
+}
+
+.loader__element:nth-child(3) {
+  animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
+}
+
+@keyframes preloader {
+  100% {
+    transform: scale(2);
+  }
+}
+
+.card {
   display: inline-block;
+  width: 300px;
+  padding: 1em;
+  border-radius: 15px;
+  margin: 10px;
+  background: #4f037079;
+  text-align: left;
+
+  &__name {
+    font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  box-shadow: 0px 5px 20px -10px #111111;
+
+  &:hover {
+    z-index: 5;
+    box-shadow: 0px 13px 30px -15px #000000;
+    transform: translateY(-10px);
+  }
+}
+
+.player-card {
+  display: flex;
+  position: absolute;
+  left: 200px;
+  width: 400px;
+  height: 400px;
+}
+
+.enemy-card{
+  display: flex;
+  position: absolute;
+  right: 150px;
+  width: 400px;
+  height: 400px;
+}
+.wrapper {
+  display: grid;
+  place-content: center;
+  min-height: 25vh;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.5rem, 1rem + 18vw, 5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: hsl(0, 0%, 100%);
+}
+
+.wrapper > div {
+  grid-area: 1/1/-1/-1;
+}
+.top {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 58%);
+}
+.bottom {
+  clip-path: polygon(0% 60%, 100% 50%, 100% 100%, 0% 100%);
+  color: transparent;
+  background: -webkit-linear-gradient(177deg, black 53%, hsl(0, 0%, 100%) 65%);
+  background: linear-gradient(177deg, rgba(255, 255, 255, 0.556) 53%, hsl(0, 0%, 100%) 65%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transform: translateX(-0.02em);
 }
