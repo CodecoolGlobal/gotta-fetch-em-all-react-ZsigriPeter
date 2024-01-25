@@ -11,12 +11,11 @@ export default function DisplayAllPokemons(props) {
     const randomIndex = Math.floor(Math.random() * pokemonIDs.length);
     const randomPokemonID = pokemonIDs[randomIndex];
 
- 
     const randomPokemonIndex = enemyPokemons.findIndex(
       (x) => x.id === randomPokemonID
     );
     console.log(enemyPokemons[randomPokemonIndex]);
-    return enemyPokemons[randomPokemonIndex]
+    return enemyPokemons[randomPokemonIndex];
   }
 
   return (
@@ -26,12 +25,8 @@ export default function DisplayAllPokemons(props) {
           <h1>You'r Pokemons: </h1>
           {userPokemons.map((pokemon) => {
             return (
-              <div className="pokemons">
-                <div
-                  className="userPokemons"
-                  key={pokemon.id}
-                  onClick={() => props.onClick(pokemon)}
-                >
+              <div className="pokemons" onClick={() => props.onClick(pokemon)}>
+                <div className="userPokemons" key={pokemon.id}>
                   <div className="pokemon-front">
                     <h1>{pokemon.name}</h1>
                     <img src={pokemon.sprites.front_default} alt="" />
@@ -61,10 +56,18 @@ export default function DisplayAllPokemons(props) {
           })}
         </div>
       </div>
-      <button className="customButton fixed-button-random" onClick={() => getRandomPokemon(enemyPokemons)}>
+      <button
+        className="customButton fixed-button-random"
+        onClick={() => getRandomPokemon(enemyPokemons)}
+      >
         Get random Enemy
       </button>
-      <button className="customButton fixed-button-arena" onClick={() => props.goArena()}>Go to the Arena</button>
+      <button
+        className="customButton fixed-button-arena"
+        onClick={() => props.goArena()}
+      >
+        Go to the Arena
+      </button>
     </div>
   );
 }

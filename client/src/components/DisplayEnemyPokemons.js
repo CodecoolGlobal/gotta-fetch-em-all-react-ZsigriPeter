@@ -1,10 +1,12 @@
 export default function DisplayEnemyPokemon(props) {
   return (
-    <div className="enemy-pokemons">
+    <div 
+    className="enemy-pokemons"
+    onClick={() => props.enemySelect(props.pokemonName)}>
       <div 
       className="enemyPokemons" 
       key={props.pokemonName.id}
-      onClick={() => props.enemySelect(props.pokemonName)}>
+      >
         <div className="enemy-pokemon-front">
           <h1>{props.pokemonName.name}</h1>
           <img src={props.pokemonName.sprites.front_default} alt="" />

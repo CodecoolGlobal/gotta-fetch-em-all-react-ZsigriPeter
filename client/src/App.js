@@ -163,7 +163,7 @@ function App() {
 
   const handleGoToArenaButton = () => {
     if (enemyPokemon && playerPokemon) {
-      setPageState("battle");
+      setPageState("loadingPage");
       setEnemyHP(enemyPokemon.stats[0].base_stat);
       setPlayerHP(playerPokemon.stats[0].base_stat);
       playSound();
