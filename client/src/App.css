@@ -1,6 +1,14 @@
 .App {
   background-image: url("/public/pics/magicpattern-mesh-gradient-1706170069987.png");
   text-align: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .battle-area {
@@ -18,11 +26,16 @@
   image-rendering: pixelated;
 }
 
+.damaged {
+  filter: grayscale(100%);
+}
+
 .pokemon-pic-defeat-enemy {
   image-rendering: pixelated;
   transform: scale(4, 4);
   transform: rotate(120deg);
 }
+
 .pokemon-pic-defeat-player {
   image-rendering: pixelated;
   transform: rotate(-120deg);
@@ -120,6 +133,41 @@
   top: 150px;
 }
 
+.fixed-button-arena {
+  position: absolute; 
+  left: 35%;
+  top: 400px;
+}
+.fixed-button-random {
+  position: absolute; 
+  left: 45%;
+  top: 400px;
+}
+
+.customButton { 
+border:10px solid #000000;
+border-radius:50px;
+padding:10px;
+ margin:10px;
+background-color:#F9F9F9;
+color:#000000;
+font-weight:bold;
+opacity:1;
+transition:1s;
+} 
+.customButton:hover {
+cursor:pointer;
+background-color:#F9F9F9;
+opacity:0.5;
+transition:1s;
+color:#000000;
+} 
+
+
+.back-to-location {
+  margin-top: 40px;
+}
+
 .locations {
   border: solid;
   width: 300px;
@@ -154,13 +202,17 @@
   height: 100%;
   margin: 10px 10px;
   transform-style: preserve-3d;
-  transition: transform 0.999s;
+  transition: all 0.999s;
 }
 
-.pokemons:hover .userPokemons,
+.pokemons:hover .userPokemons {
+  transform: rotateY(180deg);
+}
+
 .enemy-pokemons:hover .enemyPokemons {
   transform: rotateY(180deg);
 }
+
 .pokemon-front,
 .pokemon-back,
 .enemy-pokemon-front,
@@ -183,6 +235,7 @@
   font-size: 15px;
   transform: rotateY(0deg);
 }
+
 .pokemon-back,
 .enemy-pokemon-back {
   background-color: #063504;
@@ -195,6 +248,7 @@
   font-size: 10px;
   text-align: center;
   transform: rotateY(180deg);
+  left: -20px;
 }
 
 .locations h1 {
@@ -243,6 +297,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.winner {
+  color: white;
+}
+
+.victory-bg {
+  display: inline-block;
+  border-radius: 50%;
+  margin-top: 50px;
+  margin-left: calc(50%-300px);
+  width: 600px;
+  height: 700px;
+  background-image: url('https://img.freepik.com/premium-vector/pixel-art-retro-wave-scifi-background-with-sunrise-sunset-pixel-art-80s-pixel-art-8bit-game_148553-568.jpg?w=826');
 }
 
 .loading-page {

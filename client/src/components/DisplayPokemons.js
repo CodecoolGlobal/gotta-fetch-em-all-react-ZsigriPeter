@@ -61,10 +61,10 @@ export default function DisplayAllPokemons(props) {
           })}
         </div>
       </div>
-      <button onClick={() => getRandomPokemon(enemyPokemons)}>
+      <button className="customButton fixed-button-random" onClick={() => getRandomPokemon(enemyPokemons)}>
         Get random Enemy
       </button>
-      <button onClick={() => props.goArena()}>Go to the Arena</button>
+      <button className="customButton fixed-button-arena" onClick={() => props.goArena()}>Go to the Arena</button>
     </div>
   );
 }

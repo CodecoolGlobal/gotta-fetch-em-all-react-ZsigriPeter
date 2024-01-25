@@ -4,7 +4,9 @@ import DisplayLocations from "./components/DisplayLocations";
 import DisplayBattle from "./components/DisplayBattle";
 import DisplayAllPokemons from "./components/DisplayPokemons";
 import DisplayLoadingPage from "./components/DisplayLoadingPage";
+import DisplayWinner from "./components/DisplayWinner";
 import useSound from "use-sound";
+
 
 function App() {
   const [location, setLocation] = useState([]);
@@ -13,6 +15,7 @@ function App() {
   const [usersPokemon, setUsersPokemon] = useState([]);
   const [playerPokemon, setPlayerPokemon] = useState(null);
   const [enemyPokemon, setEnemyPokemon] = useState(null);
+  const [winnerPokemon, setWinnerPokemon] = useState({});
   const [playerHP, setPlayerHP] = useState(0);
   const [enemyHP, setEnemyHP] = useState(0);
   const [playSound] = useSound("/sounds/ready.mp3");
@@ -28,13 +31,18 @@ function App() {
         2) *
         random) /
       255;
-
     return result;
   };
 
+  const goToWinnerPage =() => {
+    setTimeout(()=> setPageState('showWinner'),1500);
+    
+  }
+
   const handlerBattle = (player, enemy) => {
-    console.log("player:", player);
-    console.log("enemy:", enemy);
+    /* console.log("player:", player);
+    console.log(playerPokemon);
+    console.log("enemy:", enemy); */
     if (player.stats[5].base_stat > enemy.stats[5].base_stat) {
       let damage = calculateDamage(player, enemy);
       if (enemyHP - damage > 0) {
@@ -45,10 +53,17 @@ function App() {
         } else {
           setPlayerHP(0);
           //Battle Over, Enemy won
+          setWinnerPokemon(enemy);
+          goToWinnerPage();
         }
       } else {
         setEnemyHP(0);
         //Battle Over, Player won
+        setUsersPokemon([...usersPokemon, enemy]);
+        setWinnerPokemon(player);
+        console.log(winnerPokemon);
+        goToWinnerPage();
+        console.log('won');
       }
     } else {
       let damage = calculateDamage(enemy, player);
@@ -59,28 +74,20 @@ function App() {
           setEnemyHP(Math.floor(enemyHP - damage));
         } else {
           setEnemyHP(0);
-          //Battle Over, Enemy won
+          //Battle Over, player won
+          setUsersPokemon([...usersPokemon, enemy]);
+          setWinnerPokemon(player);
+          goToWinnerPage();
+          console.log('won');
         }
       } else {
         setPlayerHP(0);
         //Battle Over, Enemy won
+        setWinnerPokemon(enemy);
+        goToWinnerPage();
       }
     }
   };
-
-  useEffect(() => {
-    const playerURL = "https://pokeapi.co/api/v2/pokemon/charizard";
-    const enemyURL = "https://pokeapi.co/api/v2/pokemon/bulbasaur";
-    const fetchData = async (url, state, stateHP) => {
-      const response = await fetch(url);
-      const jsonData = await response.json();
-      state(jsonData);
-      stateHP(jsonData.stats[0].base_stat);
-      return jsonData;
-    };
-    fetchData(playerURL, setPlayerPokemon, setPlayerHP);
-    fetchData(enemyURL, setEnemyPokemon, setEnemyHP);
-  }, []);
 
   useEffect(() => {
     const startingPokemonURL = [
@@ -142,17 +149,21 @@ function App() {
 
   const handleSelectedEnemyPokemon = (enemyPokemon) => {
     setEnemyPokemon(enemyPokemon);
-    console.log(enemyPokemon);
+    //console.log(enemyPokemon);
   };
 
   const handleSelectedUserPoemon = (pokemon) => {
     setPlayerPokemon(pokemon);
-    console.log(pokemon);
+    //console.log(pokemon);
+  };
+
+  const handleBackToLocations=() => {
+    setPageState("location");
   };
 
   const handleGoToArenaButton = () => {
     if (enemyPokemon && playerPokemon) {
-      setPageState("loadingPage");
+      setPageState("battle");
       setEnemyHP(enemyPokemon.stats[0].base_stat);
       setPlayerHP(playerPokemon.stats[0].base_stat);
       playSound();
@@ -198,11 +209,14 @@ function App() {
           goArena={handleGoToArenaButton}
         />
       ) : pageState === "loadingPage" ? (
-        <DisplayLoadingPage
+       <DisplayLoadingPage
           page={setPage}
           player={playerPokemon}
           enemy={enemyPokemon}
         />
+      ) : pageState === 'showWinner' ? (
+        <DisplayWinner winnerPokemon={winnerPokemon} handler={handleBackToLocations}></DisplayWinner>
+
       ) : (
         <p>No areas available for the selected location.</p>
       )}
