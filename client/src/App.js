@@ -18,7 +18,6 @@ function App() {
   const [enemyHP,setEnemyHP] = useState(0);
 
   const calculateDamage=(attacker,defender) => {
-    //217 and 255
     const random=Math.floor(Math.random()*38)+217;
     const result=((((2/5+2)*attacker.stats[1].base_stat*60/defender.stats[2].base_stat)/50)+2)*random/255;
     return result;
@@ -70,8 +69,8 @@ function App() {
       stateHP(jsonData.stats[0].base_stat);
       return jsonData;
     }
-    setPlayerPokemon(fetchData(playerURL,setPlayerPokemon,setPlayerHP));
-    setEnemyPokemon(fetchData(enemyURL,setEnemyPokemon,setEnemyHP));
+    fetchData(playerURL,setPlayerPokemon,setPlayerHP);
+    fetchData(enemyURL,setEnemyPokemon,setEnemyHP);
    
   },[]);
 
