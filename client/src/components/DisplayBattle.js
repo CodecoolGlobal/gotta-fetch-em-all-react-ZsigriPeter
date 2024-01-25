@@ -9,6 +9,7 @@ function DisplayBattle(props) {
 
     return (
         <>
+        { props.sound()}
         <div className="battle-area" >
             <div className="player-pokemon">
                 <p className="pokemon-hp">HP:{pHP}</p>
