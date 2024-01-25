@@ -4,20 +4,30 @@ import DisplayLocations from "./components/DisplayLocations";
 import DisplayBattle from "./components/DisplayBattle";
 import DisplayAllPokemons from "./components/DisplayPokemons";
 import DisplayLoadingPage from "./components/DisplayLoadingPage";
+import useSound from "use-sound";
 
 function App() {
   const [location, setLocation] = useState([]);
   const [pageState, setPageState] = useState("location");
   const [areaEncounters, setAreaEncounters] = useState([]);
   const [usersPokemon, setUsersPokemon] = useState([]);
-  const [playerPokemon, setPlayerPokemon]= useState(null);
-  const [enemyPokemon, setEnemyPokemon]= useState(null);
-  const [playerHP,setPlayerHP] = useState(0);
-  const [enemyHP,setEnemyHP] = useState(0);
+  const [playerPokemon, setPlayerPokemon] = useState(null);
+  const [enemyPokemon, setEnemyPokemon] = useState(null);
+  const [playerHP, setPlayerHP] = useState(0);
+  const [enemyHP, setEnemyHP] = useState(0);
+  const [playSound] = useSound("/sounds/ready.mp3");
+  const [playSound2] = useSound("/sounds/soundFight.mp3")
+  const [count, setCount] = useState(0)
 
-  const calculateDamage=(attacker,defender) => {
-    const random=Math.floor(Math.random()*38)+217;
-    const result=((((2/5+2)*attacker.stats[1].base_stat*60/defender.stats[2].base_stat)/50)+2)*random/255;
+  const calculateDamage = (attacker, defender) => {
+    const random = Math.floor(Math.random() * 38) + 217;
+    const result =
+      ((((2 / 5 + 2) * attacker.stats[1].base_stat * 60) /
+        defender.stats[2].base_stat /
+        50 +
+        2) *
+        random) /
+      255;
 
     return result;
   };
@@ -56,24 +66,21 @@ function App() {
         //Battle Over, Enemy won
       }
     }
-  }
+  };
 
-  useEffect(()=> {
-    const playerURL='https://pokeapi.co/api/v2/pokemon/charizard';
-    const enemyURL='https://pokeapi.co/api/v2/pokemon/bulbasaur';
-    const fetchData=async (url,state,stateHP) => {
-      const response=await fetch(url);
-      const jsonData=await response.json();
+  useEffect(() => {
+    const playerURL = "https://pokeapi.co/api/v2/pokemon/charizard";
+    const enemyURL = "https://pokeapi.co/api/v2/pokemon/bulbasaur";
+    const fetchData = async (url, state, stateHP) => {
+      const response = await fetch(url);
+      const jsonData = await response.json();
       state(jsonData);
       stateHP(jsonData.stats[0].base_stat);
       return jsonData;
-    }
-    fetchData(playerURL,setPlayerPokemon,setPlayerHP);
-    fetchData(enemyURL,setEnemyPokemon,setEnemyHP);
-   
-  },[]);
-
-
+    };
+    fetchData(playerURL, setPlayerPokemon, setPlayerHP);
+    fetchData(enemyURL, setEnemyPokemon, setEnemyHP);
+  }, []);
 
   useEffect(() => {
     const startingPokemonURL = [
@@ -148,13 +155,26 @@ function App() {
       setPageState("loadingPage");
       setEnemyHP(enemyPokemon.stats[0].base_stat);
       setPlayerHP(playerPokemon.stats[0].base_stat);
+      playSound();
     } else {
-      console.log("Please select the pokemons")
+      console.log("Please select the pokemons");
     }
-
   };
 
+  const setPage = (pageName) => {
+    setTimeout(() => {
+      setPageState(pageName);
+    }, 10000);
+  };
 
+  const playFightSound = () => {
+    
+    if (count <= 1) {
+      playSound2("/sounds/soundFight.mp3")
+      setCount(count + 1)
+    }
+    
+  }
 
   return (
     <div className="App">
@@ -167,6 +187,7 @@ function App() {
           handler={handlerBattle}
           eHP={enemyHP}
           pHP={playerHP}
+          sound={playFightSound}
         />
       ) : pageState === "selectpokemons" && areaEncounters ? (
         <DisplayAllPokemons
@@ -176,8 +197,12 @@ function App() {
           enemySelect={handleSelectedEnemyPokemon}
           goArena={handleGoToArenaButton}
         />
-      ) : pageState=== "loadingPage" ? (
-        <DisplayLoadingPage />
+      ) : pageState === "loadingPage" ? (
+        <DisplayLoadingPage
+          page={setPage}
+          player={playerPokemon}
+          enemy={enemyPokemon}
+        />
       ) : (
         <p>No areas available for the selected location.</p>
       )}
