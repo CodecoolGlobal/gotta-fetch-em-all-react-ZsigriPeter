@@ -12,7 +12,7 @@ function App() {
   const [location, setLocation] = useState([]);
   const [pageState, setPageState] = useState("location");
   const [areaEncounters, setAreaEncounters] = useState([]);
-  const [usersPokemon, setUsersPokemon] = useState([]);
+  const [userPokemons, setUserPokemons] = useState([]);
   const [playerPokemon, setPlayerPokemon] = useState(null);
   const [enemyPokemon, setEnemyPokemon] = useState(null);
   const [winnerPokemon, setWinnerPokemon] = useState({});
@@ -34,12 +34,12 @@ function App() {
     return result;
   };
 
-  const goToWinnerPage =() => {
+  const navigateToWinnerPage =() => {
     setTimeout(()=> setPageState('showWinner'),1500);
-    
+
   }
 
-  const handlerBattle = (player, enemy) => {
+  const handleBattle = (player, enemy) => {
     if (player.stats[5].base_stat > enemy.stats[5].base_stat) {
       let damage = calculateDamage(player, enemy);
       if (enemyHP - damage > 0) {
@@ -50,14 +50,14 @@ function App() {
         } else {
           setPlayerHP(0);
           setWinnerPokemon(enemy);
-          goToWinnerPage();
+          navigateToWinnerPage();
         }
       } else {
         setEnemyHP(0);
-        setUsersPokemon([...usersPokemon, enemy]);
+        setUserPokemons([...userPokemons, enemy]);
         setWinnerPokemon(player);
         console.log(winnerPokemon);
-        goToWinnerPage();
+        navigateToWinnerPage();
         console.log('won');
       }
     } else {
@@ -69,17 +69,15 @@ function App() {
           setEnemyHP(Math.floor(enemyHP - damage));
         } else {
           setEnemyHP(0);
-          //Battle Over, player won
-          setUsersPokemon([...usersPokemon, enemy]);
+          setUserPokemons([...userPokemons, enemy]);
           setWinnerPokemon(player);
-          goToWinnerPage();
+          navigateToWinnerPage();
           console.log('won');
         }
       } else {
         setPlayerHP(0);
-        //Battle Over, Enemy won
         setWinnerPokemon(enemy);
-        goToWinnerPage();
+        navigateToWinnerPage();
       }
     }
   };
@@ -97,7 +95,7 @@ function App() {
         return jsonData;
       });
       const pokemons = await Promise.all(response);
-      setUsersPokemon(pokemons);
+      setUserPokemons(pokemons);
     };
     fetchData();
   }, []);
@@ -144,7 +142,6 @@ function App() {
 
   const handleSelectedEnemyPokemon = (enemyPokemon) => {
     setEnemyPokemon(enemyPokemon);
-    //console.log(enemyPokemon);
   };
 
   const handleSelectedUserPoemon = (pokemon) => {
@@ -173,13 +170,11 @@ function App() {
     }, 10000);
   };
 
-  const playFightSound = () => {
-    
+  const playFightSound = () => { 
     if (count <= 1) {
       playSound2("/sounds/soundFight.mp3")
       setCount(count + 1)
     }
-    
   }
 
   return (
@@ -190,7 +185,7 @@ function App() {
         <DisplayBattle
           player={playerPokemon}
           enemy={enemyPokemon}
-          handler={handlerBattle}
+          handler={handleBattle}
           eHP={enemyHP}
           pHP={playerHP}
           sound={playFightSound}
@@ -198,7 +193,7 @@ function App() {
       ) : pageState === "selectpokemons" && areaEncounters ? (
         <DisplayAllPokemons
           enemyPokemonList={areaEncounters}
-          userPokemonList={usersPokemon}
+          userPokemonList={userPokemons}
           onClick={handleSelectedUserPoemon}
           enemySelect={handleSelectedEnemyPokemon}
           goArena={handleGoToArenaButton}
