@@ -5,10 +5,10 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <h3 align="center">Gotta Fetch 'Em All</h3>
-
   <p align="center">
     A React project for fetching and displaying data!
     <br />
+  <img src="./imagesReadme/pokemon-battle.png" alt="Pokemon Battle">
     <a href="https://github.com/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter"><strong>Explore the repo »</strong></a>
     <br />
     <br />
