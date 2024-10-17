@@ -40,9 +40,6 @@ function App() {
   }
 
   const handlerBattle = (player, enemy) => {
-    /* console.log("player:", player);
-    console.log(playerPokemon);
-    console.log("enemy:", enemy); */
     if (player.stats[5].base_stat > enemy.stats[5].base_stat) {
       let damage = calculateDamage(player, enemy);
       if (enemyHP - damage > 0) {
@@ -52,7 +49,6 @@ function App() {
           setPlayerHP(Math.floor(playerHP - damage));
         } else {
           setPlayerHP(0);
-          //Battle Over, Enemy won
           setWinnerPokemon(enemy);
           goToWinnerPage();
         }
@@ -154,7 +150,7 @@ function App() {
 
   const handleSelectedUserPoemon = (pokemon) => {
     setPlayerPokemon(pokemon);
-    //console.log(pokemon);
+    console.log(pokemon);
   };
 
   const handleBackToLocations=() => {
