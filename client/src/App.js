@@ -54,7 +54,6 @@ function App() {
         }
       } else {
         setEnemyHP(0);
-        //Battle Over, Player won
         setUsersPokemon([...usersPokemon, enemy]);
         setWinnerPokemon(player);
         console.log(winnerPokemon);

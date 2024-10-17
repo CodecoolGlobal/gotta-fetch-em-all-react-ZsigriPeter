@@ -1,9 +1,5 @@
 <a name="readme-top"></a>
 <!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -90,7 +86,7 @@ cd client
 npm start
 ```
 
-Change a location and an area where you want to travel. If there is a Pokémon there, choose one of yours and try to catch it by winning the fight. In the chosen area, you can select a specific opponent to battle, or you can choose the "random" option to face a randomly selected opponent from that area.
+Change a location and an area where you want to travel. If there is a Pokémon there, choose one of yours and try to catch it by winning the fight. In the chosen area, you can select a specific opponent to battle, or you can choose the "get random enemy" option to face a randomly selected opponent from that area.
 
 
 <!-- CONTRIBUTING -->
@@ -117,21 +113,9 @@ Project Link: [https://github.com/CodecoolGlobal/gotta-fetch-em-all-react-Zsigri
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter.svg?style=for-the-badge
-[contributors-url]: https://github.com/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter/graphs/contributors
-
-[forks-shield]: https://img.shields.io/github/forks/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter.svg?style=for-the-badge
-[forks-url]: https://github.com/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter/network/members
-
-[stars-shield]: https://img.shields.io/github/stars/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter.svg?style=for-the-badge
-[stars-url]: https://github.com/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter/stargazers
-
-[issues-shield]: https://img.shields.io/github/issues/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter.svg?style=for-the-badge
-[issues-url]: https://github.com/CodecoolGlobal/gotta-fetch-em-all-react-ZsigriPeter/issues
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/vazul-magyar/
-
 [React-url]: https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white
 [React.org]: https://reactjs.org/
 [JavaScript-url]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black

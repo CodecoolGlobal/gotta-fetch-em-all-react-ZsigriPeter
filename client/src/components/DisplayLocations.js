@@ -2,7 +2,6 @@ import React from "react";
 
 
 export default function DisplayLocations(props) {
-  //console.log(props.location);
   return (
     <div>
       {props.location.map((result, index) => (
